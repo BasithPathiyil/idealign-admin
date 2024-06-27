@@ -14,38 +14,25 @@ import {
   Avatar
 } from '@mui/material';
 import { Upload } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-// import { addProduct, getAllFilters } from '../../store/products/actions';
-// import { getCollectionsByCategory } from '../../store/collections/actions';
+import { useDispatch } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
 import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
-// import SuccessModal from "../SuccessModal";
-// import { MdCheckCircleOutline } from "react-icons/md";
-// import CustomIconModal from "../CustomIconModal";
+
 import CloseIcon from '@mui/icons-material/Close';
 import { addProject } from 'store/project/actions';
+import SimpleModal from 'ui-component/modals/SimpleModal';
 
 const AddProject = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   const { allFiltersData } = useSelector((state) => state?.products);
-  //   const { collectiosByCategory } = useSelector((state) => state?.collections);
 
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [projectName, setProjectName] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [collectionId, setCollectionId] = useState('');
-  const [finishId, setFinishId] = useState('');
-  const [sizeId, setSizeId] = useState('');
-  const [colorId, setColorId] = useState('');
-  const [images, setImages] = useState([]);
-  const [faces, setFaces] = useState([]);
-  const [weight, setWeight] = useState('');
   const [shortDesc, setShortDesc] = useState('');
-  const [totalSqftInBox, setTotalSqftInBox] = useState('');
   const [place, setPlace] = useState('');
-  const [perBocPcs, setPerBocPcs] = useState('');
   const [description, setDescription] = useState('');
 
   /////////////
@@ -55,46 +42,13 @@ const AddProject = () => {
   const [otherImages, setOtherImages] = useState([]);
   const [otherImagesURL, setOtherImagesURL] = useState([]);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const onChangeCategory = (event) => {
     setErrors({ ...errors, ['categoryId']: '' });
     setCategoryId(event.target.value);
-  };
-
-  const onChangeCollection = (event) => {
-    setErrors({ ...errors, ['collectionId']: '' });
-    setCollectionId(event.target.value);
-  };
-
-  const onChangeFinish = (event) => {
-    setErrors({ ...errors, ['finishId']: '' });
-    setFinishId(event.target.value);
-  };
-
-  const onChangeSize = (event) => {
-    setErrors({ ...errors, ['sizeId']: '' });
-    setSizeId(event.target.value);
-  };
-
-  const onChangeColor = (event) => {
-    setErrors({ ...errors, ['colorId']: '' });
-    setColorId(event.target.value);
-  };
-
-  //   useEffect(() => {
-  //     dispatch(getAllFilters());
-  //   }, []);
-
-  //   useEffect(() => {
-  //     if (!categoryId) {
-  //       return;
-  //     }
-  //     dispatch(getCollectionsByCategory(categoryId));
-  //   }, [categoryId]);
-
-  const handleFileChange = (event, setFileState, setListState) => {
-    const files = Array.from(event.target.files);
-    setFileState(files);
-    setListState(files.map((file) => URL.createObjectURL(file)));
   };
 
   const handleClickAdd = async (e) => {
@@ -120,7 +74,6 @@ const AddProject = () => {
       try {
         await dispatch(addProject(formData));
         navigate('/projects');
-        // setOpen(true);
       } catch (error) {
         console.log('err', error);
       }
@@ -146,12 +99,25 @@ const AddProject = () => {
   };
 
   const handleChangeFile = (e) => {
+    console.log('e.target.files[0]', e.target.files[0]);
+    if (e.target.files[0].size > 512500) {
+      setOpen(true);
+      return;
+    }
     setMainImage(e.target.files[0]);
 
     setMainImageURL(URL.createObjectURL(e.target.files[0]));
   };
   const handleChangeMoreFiles = (e) => {
+    console.log('e.target.files', e.target.files);
     const files = Array.from(e.target.files);
+    console.log('filess', files);
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > 512500) {
+        setOpen(true);
+        return;
+      }
+    }
     setOtherImages(files);
   };
   useEffect(() => {
@@ -316,6 +282,7 @@ const AddProject = () => {
           </Grid>
         </Grid>
       </Grid>
+      <SimpleModal isOpen={open} onClose={handleClose} title={'Image size should not be above 500kb'} />
     </Grid>
   );
 };

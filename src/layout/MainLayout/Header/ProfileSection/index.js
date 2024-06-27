@@ -58,9 +58,9 @@ const ProfileSection = () => {
    * */
   const anchorRef = useRef(null);
   const handleLogout = async () => {
-    // dispatch(logout());
-    localStorage.removeItem("accessToken")
-  navigate("/login")
+    console.log('working logout');
+    localStorage.removeItem('accessToken');
+    navigate('/login');
   };
 
   const handleClose = (event) => {
@@ -291,7 +291,7 @@ const ProfileSection = () => {
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
                           selected={selectedIndex === 4}
-                          onClick={handleLogout}
+                          onClick={() => handleLogout()}
                         >
                           <ListItemIcon>
                             <IconLogout stroke={1.5} size="1.3rem" />
