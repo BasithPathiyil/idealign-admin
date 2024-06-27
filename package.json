@@ -21,6 +21,7 @@
     "framer-motion": "^6.3.16",
     "html-react-parser": "^5.1.10",
     "install": "^0.13.0",
+    "lru-cache": "^10.2.2",
     "material-ui-popup-state": "^4.0.1",
     "moment": "^2.29.4",
     "npm": "^10.1.0",
@@ -46,9 +47,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:development": "copy .env.development .env && react-scripts build",
-    "build:staging": "copy .env.staging .env && react-scripts build",
-    "build:production": "copy .env.production .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
