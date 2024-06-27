@@ -42,7 +42,7 @@ const MainRoutes = {
   ),
   children: [
     {
-      path: 'dashboard',
+      path: '/',
       element: (
         <PrivateRoute>
           <DashboardDefault />
