@@ -5,7 +5,7 @@ import store from 'store/store';
 
 const api = axios.create({
   // baseURL: 'http://localhost:5000/api',
-  baseURL: 'https://idealign-se.onrender.com/api',
+  baseURL: 'http://3.93.169.114/api',
   headers: {
     'Content-Type': 'application/json'
   }
