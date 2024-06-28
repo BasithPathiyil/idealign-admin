@@ -22,6 +22,8 @@ import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
 import CloseIcon from '@mui/icons-material/Close';
 import Constants from 'utils/constants';
 import { editProject } from 'store/project/actions';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EditProject = () => {
   const { id } = useParams();
@@ -363,17 +365,16 @@ const EditProject = () => {
             <Grid item xs={12} md={12}>
               <Box mb={2}>
                 <Typography>Description</Typography>
-                <TextareaAutosize
-                  minRows={5}
-                  style={{ width: '100%' }}
+
+                <ReactQuill
+                  theme="snow"
                   value={description}
-                  onChange={(e) => {
-                    setErrors({ ...errors, ['description']: '' });
-                    setDescription(e.target.value);
-                  }}
+                  onChange={setDescription}
+                  style={{ height: '200px', backgroundColor: '#fff' }}
                 />
               </Box>
             </Grid>
+            
             <Grid item xs={12} md={12}>
               <Box mb={2}>
                 <Button fullWidth variant="contained" onClick={handleClickUpdate}>

@@ -22,6 +22,8 @@ import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
 import CloseIcon from '@mui/icons-material/Close';
 import { addProject } from 'store/project/actions';
 import SimpleModal from 'ui-component/modals/SimpleModal';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const AddProject = () => {
   const dispatch = useDispatch();
@@ -263,14 +265,12 @@ const AddProject = () => {
             <Grid item xs={12} md={12}>
               <Box mb={2}>
                 <Typography>Description</Typography>
-                <TextareaAutosize
-                  minRows={4}
-                  style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                  placeholder="Description"
-                  onChange={(e) => {
-                    setErrors({ ...errors, ['description']: '' });
-                    setDescription(e.target.value);
-                  }}
+
+                <ReactQuill
+                  theme="snow"
+                  value={description}
+                  onChange={setDescription}
+                  style={{ height: '200px', backgroundColor: '#fff' }}
                 />
               </Box>
             </Grid>

@@ -14,16 +14,11 @@ import {
   Avatar
 } from '@mui/material';
 import { Upload } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-// import { addProduct, getAllFilters } from '../../store/products/actions';
-// import { getCollectionsByCategory } from '../../store/collections/actions';
+import { useDispatch } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
 import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
-// import SuccessModal from "../SuccessModal";
-// import { MdCheckCircleOutline } from "react-icons/md";
-// import CustomIconModal from "../CustomIconModal";
-import CloseIcon from '@mui/icons-material/Close';
-import { addBlog } from 'store/blogs/actions';
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import DatePicker from 'react-datepicker';
@@ -84,7 +79,7 @@ const AddNewEvents = () => {
       try {
         console.log('api call');
         await dispatch(addNewsEvents(formData));
-        navigate("/newsevents")
+        navigate('/newsevents');
         // setOpen(true);
       } catch (error) {
         console.log('err', error);
@@ -269,18 +264,6 @@ const AddNewEvents = () => {
               </Box>
             </Grid> */}
                 <Grid item xs={12} md={12}>
-                  {/* <Box mb={2}>
-                    <Typography>Description</Typography>
-                    <TextareaAutosize
-                      minRows={4}
-                      style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                      placeholder="Description"
-                      onChange={(e) => {
-                        setErrors({ ...errors, ['content']: '' });
-                        setContent(e.target.value);
-                      }}
-                    />
-                  </Box> */}
                   <Box mb={2}>
                     <Typography>Description</Typography>
 

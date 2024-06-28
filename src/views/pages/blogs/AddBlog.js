@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import { addBlog } from 'store/blogs/actions';
 
@@ -147,15 +149,8 @@ const AddBlog = () => {
                 <Grid item xs={12} md={12}>
                   <Box mb={2}>
                     <Typography>Description</Typography>
-                    <TextareaAutosize
-                      minRows={4}
-                      style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                      placeholder="Description"
-                      onChange={(e) => {
-                        setErrors({ ...errors, ['content']: '' });
-                        setContent(e.target.value);
-                      }}
-                    />
+
+                    <ReactQuill theme="snow" value={content} onChange={setContent} style={{ height: '200px', backgroundColor: '#fff' }} />
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={12}>

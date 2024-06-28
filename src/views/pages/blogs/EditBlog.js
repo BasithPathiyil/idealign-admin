@@ -7,6 +7,8 @@ import BreadCrumbs from 'ui-component/cards/BreadCrumbs';
 
 import { editBlog } from 'store/blogs/actions';
 import Constants from 'utils/constants';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EditBlog = () => {
   const { id } = useParams();
@@ -84,7 +86,7 @@ const EditBlog = () => {
         return;
       }
       try {
-        console.log("api calling")
+        console.log('api calling');
         await dispatch(editBlog(id, formData));
         navigate('/blogs');
       } catch (error) {
@@ -179,18 +181,8 @@ const EditBlog = () => {
                 <Grid item xs={12} md={12}>
                   <Box mb={2}>
                     <Typography>Description</Typography>
-                    <TextareaAutosize
-                      minRows={4}
-                      style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                      placeholder="Description"
-                      value={content}
-                      onChange={(e) => {
-                        setErrors({ ...errors, content: '' });
-                        setContent(e.target.value);
-                      }}
-                      error={Boolean(errors.content)}
-                      helperText={errors.content}
-                    />
+
+                    <ReactQuill theme="snow" value={content} onChange={setContent} style={{ height: '200px', backgroundColor: '#fff' }} />
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={12}>
