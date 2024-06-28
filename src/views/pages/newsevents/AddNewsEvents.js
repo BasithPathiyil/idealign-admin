@@ -84,6 +84,7 @@ const AddNewEvents = () => {
       try {
         console.log('api call');
         await dispatch(addNewsEvents(formData));
+        navigate("/newsevents")
         // setOpen(true);
       } catch (error) {
         console.log('err', error);
