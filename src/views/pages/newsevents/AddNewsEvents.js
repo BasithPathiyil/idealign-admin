@@ -40,6 +40,7 @@ const AddNewEvents = () => {
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
   const [eventDate, setEventDate] = useState(null);
   const [shortDesc, setShortDesc] = useState('');
   const [content, setContent] = useState('');
@@ -75,6 +76,7 @@ const AddNewEvents = () => {
     if (Object.keys(validationErrors).length === 0) {
       const formData = new FormData();
       formData.append('title', title);
+      formData.append('category', category);
       formData.append('mainImage', mainImage);
       formData.append('eventDate', eventDate);
       formData.append('shortDesc', shortDesc);
@@ -167,6 +169,21 @@ const AddNewEvents = () => {
                         setErrors({ ...errors, ['shortDesc']: '' });
                         setShortDesc(e.target.value);
                       }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <Box mb={2}>
+                    <TextField
+                      fullWidth
+                      label="Category"
+                      variant="outlined"
+                      onChange={(e) => {
+                        setErrors({ ...errors, ['category']: '' });
+                        setCategory(e.target.value);
+                      }}
+                      error={Boolean(errors.title)}
+                      helperText={errors.title}
                     />
                   </Box>
                 </Grid>
@@ -269,7 +286,7 @@ const AddNewEvents = () => {
                     <ReactQuill theme="snow" value={content} onChange={setContent} style={{ height: '200px', backgroundColor: '#fff' }} />
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} mt={2}>
                   <Button variant="contained" color="primary" onClick={handleClickAdd} fullWidth>
                     Add
                   </Button>
@@ -279,7 +296,6 @@ const AddNewEvents = () => {
             <Grid item xs={12} md={3.5}></Grid>
           </Grid>
         </Grid>
-
       </Grid>
     </Grid>
   );

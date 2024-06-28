@@ -20,6 +20,7 @@ const EditNewsEvents = () => {
 
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [content, setContent] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -34,6 +35,7 @@ const EditNewsEvents = () => {
     if (blog) {
       setTitle(blog.title);
       setShortDesc(blog.shortDesc);
+      setCategory(blog?.category);
       setContent(blog.content);
       setEventDate(blog.eventDate);
       setMainImage(blog.mainImage);
@@ -56,7 +58,7 @@ const EditNewsEvents = () => {
       title,
       mainImage,
       shortDesc,
-      content,
+      content
     };
     const validationErrors = validateForm(data);
     if (Object.keys(validationErrors).length === 0) {
@@ -64,6 +66,10 @@ const EditNewsEvents = () => {
       const formData = new FormData();
       if (title !== blog.title) {
         formData.append('title', title);
+        count++;
+      }
+      if (category !== blog?.category) {
+        formData.append('category', category);
         count++;
       }
       if (mainImage !== blog.mainImage) {
