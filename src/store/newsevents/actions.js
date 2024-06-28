@@ -33,3 +33,14 @@ export const deleteNewsEvents = (id) => async (dispatch) => {
     console.log('error');
   }
 };
+
+export const editNewsEvents = (id, body) => async (dispatch) => {
+  try {
+    const { data } = await api.put(`/newsevents/edit?id=${id}`, body, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    dispatch(getAllNewsEvents());
+  } catch (error) {
+    console.log('error');
+  }
+};

@@ -17,6 +17,7 @@ import NewsEventsList from 'views/pages/newsevents/NewsEventsList';
 import AddNewEvents from 'views/pages/newsevents/AddNewsEvents';
 import EditProject from 'views/pages/projects/EditProject';
 import EditBlog from 'views/pages/blogs/EditBlog';
+import EditNewsEvents from 'views/pages/newsevents/EditNewsEvents';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -96,6 +97,10 @@ const MainRoutes = {
     {
       path: 'newsevents/addnewsevents',
       element: <AddNewEvents />
+    },
+    {
+      path: 'newsevents/edit/:id',
+      element: <EditNewsEvents />
     },
     {
       path: 'blogs/detailed/:id',

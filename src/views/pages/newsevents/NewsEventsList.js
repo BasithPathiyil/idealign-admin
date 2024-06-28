@@ -37,6 +37,9 @@ const NewsEventsList = () => {
     setOpen1(true);
     setId(null);
   };
+  const handleClickEdit = async (id) => {
+    navigate(`/newsevents/edit/${id}`);
+  };
   return (
     <Grid container sx={{ bgcolor: 'white' }}>
       <Grid item xs={12} md={12}>
@@ -56,6 +59,9 @@ const NewsEventsList = () => {
                 <TableCell sx={{ display: 'flex', gap: '16px' }}>
                   <Button onClick={() => handleClickView(project?._id)} variant="contained">
                     View
+                  </Button>
+                  <Button onClick={() => handleClickEdit(project?._id)} variant="contained">
+                    Edit
                   </Button>
                   <Button onClick={() => handleClickDelete(project?._id)} variant="contained">
                     Delete
