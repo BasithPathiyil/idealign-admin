@@ -25,6 +25,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './datepicker.css';
 import { addNewsEvents } from 'store/newsevents/actions';
+import SimpleModal from 'ui-component/modals/SimpleModal';
 
 const AddNewEvents = () => {
   const dispatch = useDispatch();
@@ -88,7 +89,9 @@ const AddNewEvents = () => {
       setErrors(validationErrors);
     }
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const navigateProducts = () => {
     setOpen(false);
     navigate('/products');
@@ -108,6 +111,10 @@ const AddNewEvents = () => {
   };
 
   const handleChangeFile = (e) => {
+    if (e.target.files[0].size > 512500) {
+      setOpen(true);
+      return;
+    }
     setMainImage(e.target.files[0]);
 
     setMainImageURL(URL.createObjectURL(e.target.files[0]));
@@ -281,6 +288,7 @@ const AddNewEvents = () => {
           </Grid>
         </Grid>
       </Grid>
+      <SimpleModal isOpen={open} onClose={handleClose} title={'Image size should not be above 500kb'} />
     </Grid>
   );
 };

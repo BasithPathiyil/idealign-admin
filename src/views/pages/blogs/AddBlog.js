@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  TextField,
-  Button,
-  TextareaAutosize,
-  Box,
-  Typography,
-  Modal,
-  Grid,
-  Avatar
-} from '@mui/material';
+import { TextField, Button, TextareaAutosize, Box, Typography, Modal, Grid, Avatar } from '@mui/material';
 import { Upload } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,11 +9,11 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import { addBlog } from 'store/blogs/actions';
+import SimpleModal from 'ui-component/modals/SimpleModal';
 
 const AddBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({});
@@ -35,7 +26,9 @@ const AddBlog = () => {
   const [mainImage, setMainImage] = useState(null);
   const [mainImageURL, setMainImageURL] = useState('');
 
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleClickAdd = async (e) => {
     e.preventDefault();
     const data = {
@@ -79,12 +72,15 @@ const AddBlog = () => {
   };
 
   const handleChangeFile = (e) => {
+    if (e.target.files[0].size > 512500) {
+      setOpen(true);
+      return;
+    }
     setMainImage(e.target.files[0]);
 
     setMainImageURL(URL.createObjectURL(e.target.files[0]));
   };
 
- 
   return (
     <Grid container>
       <Grid item xs={12} md={12}>
@@ -177,8 +173,8 @@ const AddBlog = () => {
             <Grid item xs={12} md={3.5}></Grid>
           </Grid>
         </Grid>
-
       </Grid>
+      <SimpleModal isOpen={open} onClose={handleClose} title={'Image size should not be above 500kb'} />
     </Grid>
   );
 };
