@@ -1,2 +1,2 @@
-/api/* http://3.93.169.114/api/:splat 200
-/ima/* http://3.93.169.114/:splat 200
+/api/* http://54.157.240.144/api/:splat 200
+/ima/* http://54.157.240.144/:splat 200

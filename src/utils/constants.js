@@ -1,6 +1,6 @@
 const Constants = {
     // imageBaseUrl: "http://localhost:5000/uploads/",
-    // imageBaseUrl: "http://3.93.169.114/uploads/",
+    // imageBaseUrl: "http://54.157.240.144/uploads/",
     imageBaseUrl: "/ima/uploads/",
   };
   

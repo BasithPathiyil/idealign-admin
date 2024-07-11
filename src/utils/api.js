@@ -5,7 +5,7 @@ import store from 'store/store';
 
 const api = axios.create({
   // baseURL: 'http://localhost:5000/api',
-  // baseURL: 'http://3.93.169.114/api',
+  // baseURL: 'http://54.157.240.144/api',
   baseURL:"/api",
   headers: {
     'Content-Type': 'application/json'

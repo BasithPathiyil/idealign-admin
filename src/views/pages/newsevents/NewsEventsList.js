@@ -1,10 +1,10 @@
-import { Alert, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Alert, Button, Grid, Switch, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteNewsEvents, getAllNewsEvents } from 'store/newsevents/actions';
+import { deleteNewsEvents, editNewsEvents, getAllNewsEvents } from 'store/newsevents/actions';
 import SimpleModal from 'ui-component/modals/SimpleModal';
 import YesOrNoModal from 'ui-component/modals/YesOrNoModal';
 
@@ -40,6 +40,9 @@ const NewsEventsList = () => {
   const handleClickEdit = async (id) => {
     navigate(`/newsevents/edit/${id}`);
   };
+  const handleChangeSwitch = async (e, id) => {
+    await dispatch(editNewsEvents(id, { featured: e.target.checked }));
+  };
   return (
     <Grid container sx={{ bgcolor: 'white' }}>
       <Grid item xs={12} md={12}>
@@ -48,6 +51,7 @@ const NewsEventsList = () => {
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Short Description</TableCell>
+              <TableCell>Featured</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -56,6 +60,9 @@ const NewsEventsList = () => {
               <TableRow key={project?._id}>
                 <TableCell>{project?.title}</TableCell>
                 <TableCell>{project?.shortDesc}</TableCell>
+                <TableCell>
+                  <Switch checked={project?.featured} onChange={(e) => handleChangeSwitch(e, project?._id)} />
+                </TableCell>
                 <TableCell sx={{ display: 'flex', gap: '16px' }}>
                   <Button onClick={() => handleClickView(project?._id)} variant="contained">
                     View
