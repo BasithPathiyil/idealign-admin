@@ -35,6 +35,8 @@ const AddProject = () => {
   const [categoryId, setCategoryId] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [place, setPlace] = useState('');
+  const [client, setClient] = useState('');
+  const [area, setArea] = useState('');
   const [description, setDescription] = useState('');
 
   /////////////
@@ -72,6 +74,8 @@ const AddProject = () => {
       });
       formData.append('shortDesc', shortDesc);
       formData.append('place', place);
+      formData.append('client', client);
+      formData.append('area', area);
       formData.append('description', description);
       try {
         await dispatch(addProject(formData));
@@ -195,6 +199,32 @@ const AddProject = () => {
                   onChange={(e) => {
                     setErrors({ ...errors, ['place']: '' });
                     setPlace(e.target.value);
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  label="Client"
+                  variant="outlined"
+                  onChange={(e) => {
+                    setErrors({ ...errors, ['shortDesc']: '' });
+                    setClient(e.target.value);
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  label="Area"
+                  variant="outlined"
+                  onChange={(e) => {
+                    setErrors({ ...errors, ['place']: '' });
+                    setArea(e.target.value);
                   }}
                 />
               </Box>
