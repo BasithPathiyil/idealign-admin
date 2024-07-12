@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
   const verifyToken = async (token) => {
     try {
       console.log('working evry');
-      const response = await fetch('http://localhost:5000/api/verify_token', {
+      const response = await fetch('/api/verify_token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
