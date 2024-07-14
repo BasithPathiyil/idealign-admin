@@ -38,6 +38,8 @@ const EditProject = () => {
   const [categoryId, setCategoryId] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [place, setPlace] = useState('');
+  const [client, setClient] = useState('');
+  const [area, setArea] = useState('');
   const [description, setDescription] = useState('');
   const [mainImage, setMainImage] = useState(null);
   const [mainImageURL, setMainImageURL] = useState('');
@@ -73,6 +75,8 @@ const EditProject = () => {
       setDescription(project.description);
       setMainImage(project.mainImage);
       setNonRemovedImages(project.otherImages);
+      setClient(project?.client);
+      setArea(project?.area);
       //   setMainImageURL(project.mainImage ? `${Constants.imageBaseUrl}${project.mainImage}` : '');
       //   setOtherImagesURL(project.otherImagesURL);
     }
@@ -127,8 +131,7 @@ const EditProject = () => {
       }
       if (mainImage !== project.mainImage) {
         formData.append('mainImage', mainImage);
-    
-        
+
         count++;
       }
       if (otherImages.length) {
@@ -148,6 +151,14 @@ const EditProject = () => {
       }
       if (place !== project.place) {
         formData.append('place', place);
+        count++;
+      }
+      if (shortDesc !== project?.client) {
+        formData.append('client', client);
+        count++;
+      }
+      if (place !== project?.area) {
+        formData.append('area', area);
         count++;
       }
       if (description !== project.description) {
@@ -280,6 +291,34 @@ const EditProject = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  label="Client"
+                  variant="outlined"
+                  value={client}
+                  onChange={(e) => {
+                    setErrors({ ...errors, ['client']: '' });
+                    setClient(e.target.value);
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  label="Area"
+                  variant="outlined"
+                  value={area}
+                  onChange={(e) => {
+                    setErrors({ ...errors, ['area']: '' });
+                    setArea(e.target.value);
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
               {mainImageURL ? (
                 <Box sx={{ height: '75pxpx', width: '75px' }}>
                   <Avatar variant="square" sx={{ width: '100%', height: 75 }}>
@@ -374,7 +413,7 @@ const EditProject = () => {
                 />
               </Box>
             </Grid>
-            
+
             <Grid item xs={12} md={12}>
               <Box mb={2}>
                 <Button fullWidth variant="contained" onClick={handleClickUpdate}>
