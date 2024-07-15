@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Button, TextareaAutosize, Box, Typography, Modal, Grid, Avatar } from '@mui/material';
+import {
+  TextField,
+  Button,
+  TextareaAutosize,
+  Box,
+  Typography,
+  Modal,
+  Grid,
+  Avatar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@mui/material';
 import { Upload } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,6 +31,7 @@ const EditBlog = () => {
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState('');
   const [shortDesc, setShortDesc] = useState('');
+  const [category, setCategory] = useState('');
   const [content, setContent] = useState('');
   const [youtubeLink, setYoutubeLink] = useState('');
   const [mainImage, setMainImage] = useState(null);
@@ -32,6 +46,7 @@ const EditBlog = () => {
       setTitle(blog.title);
       setShortDesc(blog.shortDesc);
       setContent(blog.content);
+      setCategory(blog?.category);
       setYoutubeLink(blog.youtubeLink);
       setMainImage(blog.mainImage);
     }
@@ -71,6 +86,10 @@ const EditBlog = () => {
       }
       if (shortDesc !== blog.shortDesc) {
         formData.append('shortDesc', shortDesc);
+        count++;
+      }
+      if (category !== blog?.category) {
+        formData.append('category', category);
         count++;
       }
       if (content !== blog.content) {
@@ -115,7 +134,10 @@ const EditBlog = () => {
     setMainImage(e.target.files[0]);
     setMainImageURL(URL.createObjectURL(e.target.files[0]));
   };
-
+  const onChangeCategory = (event) => {
+    setErrors({ ...errors, ['categoryId']: '' });
+    setCategory(event.target.value);
+  };
   return (
     <Grid container>
       <Grid item xs={12} md={12}>
@@ -155,6 +177,23 @@ const EditBlog = () => {
                       error={Boolean(errors.shortDesc)}
                       helperText={errors.shortDesc}
                     />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <Box mb={2}>
+                    <FormControl fullWidth variant="outlined" error={Boolean(errors.categoryId)}>
+                      <InputLabel>Category</InputLabel>
+                      <Select value={category} onChange={onChangeCategory} label="Category">
+                        <MenuItem value="PMC">PMC</MenuItem>
+                        <MenuItem value="Construction">Construction</MenuItem>
+                        <MenuItem value="Architecture">Architecture</MenuItem>
+                        <MenuItem value="MEP">MEP</MenuItem>
+                        <MenuItem value="Civil">Civil</MenuItem>
+                      </Select>
+                      <Typography variant="caption" color="error">
+                        {errors.category}
+                      </Typography>
+                    </FormControl>
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={12}>

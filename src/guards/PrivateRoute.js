@@ -13,7 +13,9 @@ const PrivateRoute = ({ children }) => {
   const verifyToken = async (token) => {
     try {
       console.log('working evry');
-      const response = await fetch('/api/verify_token', {
+      // let url=`http://localhost:5000/api/verify_token`
+      let url = `/api/verify_token`
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

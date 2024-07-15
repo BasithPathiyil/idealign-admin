@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Button, TextareaAutosize, Box, Typography, Modal, Grid, Avatar } from '@mui/material';
+import {
+  TextField,
+  Button,
+  TextareaAutosize,
+  Box,
+  Typography,
+  Modal,
+  Grid,
+  Avatar,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@mui/material';
 import { Upload } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +33,7 @@ const AddBlog = () => {
   const [title, setTitle] = useState('');
 
   const [shortDesc, setShortDesc] = useState('');
+  const [category, setCategory] = useState('');
   const [content, setContent] = useState('');
   const [youtubeLink, setYoutubeLink] = useState('');
   /////////////
@@ -43,8 +57,8 @@ const AddBlog = () => {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('mainImage', mainImage);
-
       formData.append('shortDesc', shortDesc);
+      formData.append('category', category);
       formData.append('content', content);
       formData.append('youtubeLink', youtubeLink);
       try {
@@ -80,7 +94,10 @@ const AddBlog = () => {
 
     setMainImageURL(URL.createObjectURL(e.target.files[0]));
   };
-
+  const onChangeCategory = (event) => {
+    setErrors({ ...errors, ['categoryId']: '' });
+    setCategory(event.target.value);
+  };
   return (
     <Grid container>
       <Grid item xs={12} md={12}>
@@ -117,6 +134,23 @@ const AddBlog = () => {
                         setShortDesc(e.target.value);
                       }}
                     />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                  <Box mb={2}>
+                    <FormControl fullWidth variant="outlined" error={Boolean(errors.categoryId)}>
+                      <InputLabel>Category</InputLabel>
+                      <Select value={category} onChange={onChangeCategory} label="Category">
+                        <MenuItem value="PMC">PMC</MenuItem>
+                        <MenuItem value="Construction">Construction</MenuItem>
+                        <MenuItem value="Architecture">Architecture</MenuItem>
+                        <MenuItem value="MEP">MEP</MenuItem>
+                        <MenuItem value="Civil">Civil</MenuItem>
+                      </Select>
+                      <Typography variant="caption" color="error">
+                        {errors.category}
+                      </Typography>
+                    </FormControl>
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={12}>
